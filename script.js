@@ -1,86 +1,118 @@
 "use strict";
 
-// (function () {
-//     let cache = new Map ()
-//     let id = 1
-//     function caching (data) {
-//         if (cache.size <= 9) {
-//             cache.set (id, data)
-//             console.log(cache.size)
-//         }   else if (cache.size >= 9) {
-//             console.log(cache.delete(cache))
-//             console.log(cache.set(id, data))
-//         }
-//         id++
-//         // return cache.get(data)
-//     }
-//     let someFunc = function () {}
-//     let obj = {}
-//     let arr = []
-//
-//     caching(someFunc)
-//     caching(obj)
-//     let result2 = caching(someFunc)
-//     let result3 = caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     caching(someFunc)
-//     console.log(cache)
-// })()
-
 (function () {
-    let cache = new Map ()
-    let id = 1
-    function caching (data) {
-        if (!cache.has(data) && cache.size < 10) {
-            cache.set (data, id)
-        }   else if (cache.has(data) && cache.size < 10) {
-            cache.set(id, `${data} is already written`)
-        }   else {
-            for (let key of cache) {
-                console.log(key)
-                if (key[1] === `${data} is already written` && !cache.has(data)) {
-                    cache.delete(key)
-                    cache.set(data, id)
-                }   else {
-                    cache.delete(key)
-                    cache.set(id, `${data} is already written`)
-                }
-            }
-        }
-        id++
-    }
-    let someFunc = function () {}
-    let obj = {}
-    let arr = []
 
-    caching(someFunc)
-    caching(obj)
-    let result2 = caching(someFunc)
-    let result3 = caching(someFunc)
-    caching(someFunc)
-    caching(someFunc)
-    caching(someFunc)
-    caching(someFunc)
-    caching(arr)
-    caching(someFunc)
-    caching(someFunc)
-    // caching(arr)
-    caching(someFunc)
-    caching(arr)
-    caching(someFunc)
-    caching(someFunc)
-    caching(someFunc)
-    caching(someFunc)
-    caching(someFunc)
+    // let cache = new Map ()
+    // let rewriteArr = []
+    // function caching (arg, func) {
+    //     let count = 1
+    //     let temporaryArr = [arg, func, count]
+    //     let item
+    //
+    //
+    //     if (rewriteArr.length === 0) rewriteArr.push(temporaryArr)
+    //     for (item of rewriteArr) {
+    //         if (item[0] === temporaryArr[0]) {
+    //             console.log(cache.get(arg))
+    //             return
+    //         }
+    //     } if (item[0] !== temporaryArr[0] && rewriteArr.length < 10) rewriteArr.push(temporaryArr)
+    //     else if (rewriteArr.length < 11) {
+    //         rewriteArr.shift()
+    //         rewriteArr.push(temporaryArr)
+    //     }
+    // }
+
+    // let cache = new Map ()
+    // let rewriteArr = []
+    // function caching (arg, func) {
+    //     let count = 1
+    //     let temporaryArr = [arg, func, count]
+    //     let item
+    //
+    //
+    //     if (rewriteArr.length === 0) {
+    //         cache.set(temporaryArr, count)
+    //         rewriteArr.push(temporaryArr)
+    //     }
+    //     for (item of rewriteArr) {
+    //         if (item[0] === temporaryArr[0]) {
+    //             item[2]++
+    //             return
+    //         }
+    //     } if (item[0] !== temporaryArr[0] && rewriteArr.length < 10) {
+    //         rewriteArr.push(temporaryArr)
+    //         cache.set(temporaryArr, count)
+    //     }
+    //     else if (rewriteArr.length < 11) {
+    //         rewriteArr.shift()
+    //         rewriteArr.push(temporaryArr)
+    //         cache.delete()
+    //         cache.set(temporaryArr, count)
+    //     }
+    // }
+
+    let cache = new Set ()
+    let rewriteArr = []
+
+    function caching (arg, func) {
+        let count = 1
+        let temporaryArr = [arg, func, count]
+        let item
+
+
+        if (rewriteArr.length === 0) {
+            temporaryArr[2]--
+            cache.add(temporaryArr)
+            rewriteArr.push(temporaryArr)
+        }
+        for (item of rewriteArr) {
+            if (item[0] === temporaryArr[0]) {
+                item[2]++
+                return
+            }
+        } if (item[0] !== temporaryArr[0] && rewriteArr.length < 10) {
+            rewriteArr.push(temporaryArr)
+            cache.add(temporaryArr)
+        }
+        else if (rewriteArr.length < 11) {
+            rewriteArr.shift()
+            rewriteArr.push(temporaryArr)
+            cache.add(temporaryArr)
+        }
+    }
+
+    // cache.add(rewriteArr)
+
+    console.log(rewriteArr)
+
     console.log(cache)
+
+    let someFunc = function () {}
+
+    caching(1, someFunc)
+    caching(1, someFunc)
+    caching(2, someFunc)
+    caching(2, someFunc)
+    caching(2, someFunc)
+    caching(3, someFunc)
+    caching(4, someFunc)
+    caching(4, someFunc)
+    caching(5, someFunc)
+    caching(6, someFunc)
+    caching(6, someFunc)
+    caching(6, someFunc)
+    caching(7, someFunc)
+    caching(7, someFunc)
+    caching(7, someFunc)
+    caching(7, someFunc)
+    caching(8, someFunc)
+    caching(8, someFunc)
+    caching(9, someFunc)
+    caching(10, someFunc)
+    caching(10, someFunc)
+    caching(10, someFunc)
+    caching(11, someFunc)
+    caching(12, someFunc)
+    caching(13, someFunc)
 })()
